@@ -1,11 +1,10 @@
 import { generateText, Output } from "ai"
-import { anthropic } from "@ai-sdk/anthropic"
 import { z } from "zod"
 import type { ChatMessage, IntakeEvent } from "@/lib/types"
 
 export const maxDuration = 30
 
-const MODEL = anthropic("claude-3-5-haiku-20241022")
+const MODEL = "anthropic/claude-3-5-haiku"
 
 const resultSchema = z.object({
   slots: z.object({
