@@ -1,16 +1,27 @@
+import { Siren } from "lucide-react"
+import { EmergencyChat } from "@/components/emergency-chat"
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center font-sans">
-      <main className="flex w-full max-w-3xl flex-col items-center gap-8 px-6 py-16 text-center sm:items-start sm:text-left">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold tracking-tight">
-            ReliefMap
-          </h1>
-          <p className="max-w-md text-lg text-muted-foreground">
-            To get started, send a prompt or modify this page directly.
-          </p>
+    <main className="flex min-h-dvh flex-col bg-background font-sans">
+      <header className="border-b border-border">
+        <div className="mx-auto flex w-full max-w-6xl items-center gap-3 px-4 py-4">
+          <div className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <Siren className="size-5" aria-hidden="true" />
+          </div>
+          <div>
+            <h1 className="text-base font-semibold tracking-tight text-balance">
+              ReliefMap — 911 WhatsApp Intake Agent
+            </h1>
+            <p className="text-xs text-muted-foreground">
+              AI slot-filling · triage · active monitoring · live dispatch console
+            </p>
+          </div>
         </div>
-      </main>
-    </div>
-  );
+      </header>
+      <div className="flex-1 px-4 py-6">
+        <EmergencyChat />
+      </div>
+    </main>
+  )
 }
