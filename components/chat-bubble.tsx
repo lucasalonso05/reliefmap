@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 import { Info } from "lucide-react"
 import type { ChatMessage } from "@/lib/types"
@@ -7,6 +10,20 @@ function formatTime(ts: number) {
     hour: "2-digit",
     minute: "2-digit",
   })
+}
+
+function Timestamp({ ts, className }: { ts: number; className?: string }) {
+  // Render the localized time only after mount to avoid SSR/client
+  // timezone mismatches that trigger hydration errors.
+  const [text, setText] = useState("")
+  useEffect(() => {
+    setText(formatTime(ts))
+  }, [ts])
+  return (
+    <span className={className} suppressHydrationWarning>
+      {text || "\u00A0"}
+    </span>
+  )
 }
 
 export function ChatBubble({ message }: { message: ChatMessage }) {
@@ -46,16 +63,15 @@ export function ChatBubble({ message }: { message: ChatMessage }) {
         <p className="whitespace-pre-wrap leading-relaxed text-pretty">
           {message.content}
         </p>
-        <span
+        <Timestamp
+          ts={message.createdAt}
           className={cn(
             "mt-1 block text-right text-[10px]",
             isCitizen
               ? "text-bubble-out-foreground/60"
               : "text-bubble-in-foreground/50",
           )}
-        >
-          {formatTime(message.createdAt)}
-        </span>
+        />
       </div>
     </div>
   )
